@@ -30,6 +30,17 @@ Holding all three for 3 s always returns to the first mode.
 USB-serial chip is a CH340 (`1a86:7523`); the bootloader is the old 57600 baud one
 (`arduino:avr:nano:cpu=atmega328old`). The USB port is only reachable with the backplate removed.
 
+## Before you plug in: opening the pedal
+The USB port is inside the pedal. JET's own guide shows how to open it:
+[Can I update the software on my old Micro?](https://docs.jetpedals.com/books/jet-micro-user-manual/page/can-i-update-the-software-on-my-old-micro)
+In short: remove the four silver screws on the backplate, remove the two black screws holding the backplate to
+the PCB, then remove the stand-off next to the USB port. Reassemble in reverse and take care not to pinch any
+wires when closing it up. Then connect a micro-USB **data** cable (some cables only charge).
+
+That guide is for JET's own Windows updater (XLoader). The steps below do the same job with avrdude and also
+work on macOS and Linux. Its tip for Windows driver problems applies here too: if the pedal shows a yellow
+warning icon in Device Manager, uninstall the device (tick "delete the driver software"), unplug and replug it.
+
 ## 1. Back up the original firmware first
 ```bash
 brew install avrdude arduino-cli          # or your platform's equivalent
