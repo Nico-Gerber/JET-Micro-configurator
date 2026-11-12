@@ -1,5 +1,7 @@
 # JET Micro HX: open firmware + configurator
 
+![The JET Micro configurator showing the default layout](docs/screenshot.jpg)
+
 Open replacement firmware for the JET Micro HX 3.0 footswitch (Arduino Nano / ATmega328P inside), plus a
 browser-based configurator to choose what every button and press type does in each colour mode.
 
@@ -63,6 +65,19 @@ python3 tools/restore_original.py --port <PORT> --dry-run       # check the conn
 It needs `avrdude` and the same USB connection as flashing. Only the application area is written; the
 bootloader is never touched, so you can flash this project's firmware again any time. This repo does not ship
 JET's firmware: the script fetches it from JET's own site (and checks its SHA-256) when you run it.
+
+## Windows notes (untested)
+The steps above were written and tested on macOS. Windows should work with these changes, but it has **not been
+tested yet**; please open an issue if something breaks.
+- **Install tools:** there is no Homebrew. Get arduino-cli with `winget install ArduinoSA.CLI`, and avrdude from its
+  GitHub releases (unzip it and add the folder to your PATH) or from the copy bundled with the Arduino IDE.
+- **Find the port:** Device Manager → Ports (COM & LPT), e.g. `COM3`. Use that as `<PORT>`.
+- **USB driver:** the pedal's USB-serial chip is a CH340. If no COM port appears, install the WCH "CH34x" driver.
+- **Python:** use `python` or `py` instead of `python3`.
+- **Configurator:** works the same in Chrome or Edge. Any static file server will do.
+- **Restore script:** `restore_original.py` passes avrdude a temp-file path such as `C:\Users\...\flash.hex`. The drive-letter
+  colon may confuse older avrdude versions. If you hit a "file format" error, update avrdude or restore with the
+  command in step 1, writing your own backup with `-U flash:w:backups\jet_micro_flash_backup.hex:i`.
 
 ## HX Stomp MIDI
 Defaults target the HX Stomp on MIDI channel 1: CC69 snapshots, CC72 preset step, CC68 tuner, CC64 tap tempo.
