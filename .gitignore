@@ -1,0 +1,8 @@
+# JET's firmware and your own dumps: proprietary / unit-specific, keep local only
+backups/*.hex
+# OS / editor / build noise
+.DS_Store
+build/
+*.elf
+*.bin
+__pycache__/
